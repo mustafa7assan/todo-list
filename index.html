@@ -18,118 +18,97 @@
     <title>Todo</title>
   </head>
   <body>
-    <div class="app">
-      <header class="header">
-        <nav class="nav">
-          <h1 class="nav__title">
-            <i class="fa-solid fa-check-double"></i>Todo
-          </h1>
-        </nav>
-      </header>
-      <main class="main">
-        <section class="left">
-          <div class="top">
-            <div class="today">
-              <i class="fa-solid fa-calendar-day today__icon"></i>Today
-            </div>
+    <header class="header">
+      <nav class="nav">
+        <h1 class="nav__title"><i class="fa-solid fa-check-double"></i>Todo</h1>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="left">
+        <div class="top">
+          <div class="today">
+            <i class="fa-solid fa-calendar-day today__icon"></i>Today
           </div>
-          <div class="bottom">
-            <div class="projects-list__container">
-              <div class="projects-list__header">
-                <div class="left">
-                  <i
-                    class="fa-solid fa-angle-down btn--expand projects__icon"
-                  ></i>
-                  <h3>Projects</h3>
-                </div>
-                <i class="fa-solid fa-plus btn--add projects__icon"></i>
+        </div>
+        <div class="bottom">
+          <div class="projects-list__container">
+            <div class="projects-list__header">
+              <div class="left">
+                <i
+                  class="fa-solid fa-angle-down btn--expand projects__icon"
+                ></i>
+                <i class="fa-solid fa-angle-right btn--show hidden"></i>
+                <h4>Projects</h4>
               </div>
-              <form class="add-project-form hidden">
-                <input type="text" placeholder="Project name" />
-                <button class="btn btn-add-project">Add</button>
-              </form>
-              <ul class="projects__list">
-                <li>
-                  <i class="fa-solid fa-list-check"></i>
-                  Homework
-                </li>
-                <li><i class="fa-solid fa-list-check"></i>Studay</li>
-                <li><i class="fa-solid fa-list-check"></i>Examniations</li>
-              </ul>
+              <i class="fa-solid fa-plus btn--add-project projects__icon"></i>
             </div>
-          </div>
-        </section>
-        <section class="projects">
-          <h3 class="project-name">Today</h3>
-          <div class="projects-todos hidden">
-            <div class="todo">
-              <div class="todo__title">
-                <i class="fa-regular fa-circle-check done-icon"></i>
-                <span class="todo__text">Task 1</span>
-              </div>
-              <div class="todo__controls">
-                <i class="fa-regular fa-pen-to-square edit-icon"></i>
-                <i class="fa-regular fa-calendar date-icon"></i>
-                <i class="fa-regular fa-message comment-icon"></i>
-              </div>
-            </div>
-
-            <div class="todo">
-              <div class="todo__title">
-                <i class="fa-regular fa-circle-check done-icon"></i>
-                <span class="todo__text">Task 1</span>
-              </div>
-              <div class="todo__controls">
-                <i class="fa-regular fa-pen-to-square edit-icon"></i>
-                <i class="fa-regular fa-calendar date-icon"></i>
-                <i class="fa-regular fa-message comment-icon"></i>
-              </div>
-            </div>
-          </div>
-          <div class="modal hidden">
-            <form class="add-todo-form">
-              <ul>
-                <li>
-                  <label for="todo-name">Task Title</label>
-                  <input type="text" id="todo-name" placeholder="Task title" />
-                </li>
-                <li>
-                  <label for="todo-decription">Task Description</label>
-                  <textarea
-                    name=""
-                    id="todo-decription"
-                    cols="30"
-                    rows="5"
-                    placeholder="Task description"
-                  ></textarea>
-                </li>
-                <li class="two-input">
-                  <div>
-                    <label for="todo-date">Task Date</label>
-                    <input type="date" name="" id="todo-date" />
-                  </div>
-                  <div>
-                    <label for="todo-pirority">Todo Priority</label>
-                    <select name="" id="odo-pirority">
-                      <option value="1">Pirority 1</option>
-                      <option value="2">Pirority 2</option>
-                      <option value="3">Pirority 3</option>
-                    </select>
-                  </div>
-                </li>
-              </ul>
-              <div>
-                <button class="btn form__btn-add">Add task</button>
-                <button class="btn form__btn-cancle">Cancle</button>
-              </div>
+            <form class="add-project-form hidden">
+              <input
+                type="text"
+                placeholder="Project name"
+                id="project__name"
+                required
+              />
+              <button class="btn btn-add-project">Add</button>
             </form>
+            <ul class="projects__list"></ul>
           </div>
-          <button class="btn btn--add-todo">
-            <i class="fa-solid fa-plus btn--add-icon"></i>Add task
-          </button>
-        </section>
-      </main>
-      <div class="overlay hidden"></div>
-    </div>
+        </div>
+      </section>
+      <section class="projects">
+        <h3 class="project-name">Today</h3>
+        <div class="projects-todos"></div>
+        </div>
+        <button class="btn btn--add-todo">
+          <i class="fa-solid fa-plus btn--add-icon"></i>Add task
+        </button>
+      </section>
+      <div class="modal hidden">
+        <form class="add-todo-form">
+          <ul>
+            <li>
+              <label for="todo-title">Task Title</label>
+              <input
+                type="text"
+                id="todo-title"
+                placeholder="Task title"
+                required
+              />
+            </li>
+            <li>
+              <label for="todo-decription">Task Description</label>
+              <textarea
+                name=""
+                id="todo-description"
+                cols="30"
+                rows="5"
+                placeholder="Task description"
+                required
+              ></textarea>
+            </li>
+            <li class="two-input">
+              <div>
+                <label for="todo-date">Task Date</label>
+                <input type="date" name="" id="todo-date" required />
+              </div>
+              <div>
+                <label for="todo-priority">Task Priority</label>
+                <select name="" id="todo-priority" required>
+                  <option value="">...</option>
+                  <option value="1">Pirority 1</option>
+                  <option value="2">Pirority 2</option>
+                  <option value="3">Pirority 3</option>
+                </select>
+              </div>
+            </li>
+          </ul>
+          <div>
+            <button class="btn form__btn-add" type="submit">Add task</button>
+            <button class="btn form__btn-cancle" type="button">Cancle</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <div class="overlay hidden"></div>
   </body>
 </html>
