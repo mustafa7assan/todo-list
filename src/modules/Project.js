@@ -18,6 +18,10 @@ class Project {
     this.todos.splice(index, 1);
   }
 
+  getTodo(index) {
+    return this.todos[index];
+  }
+
   getAllTodos() {
     return this.todos;
   }

@@ -1,21 +1,23 @@
 'use strict';
+const TodoList = (function () {
+  const projects = [];
 
-class TodoList {
-  constructor() {
-    this.projects = [];
-  }
+  const addProject = project => {
+    projects.push(project);
+  };
 
-  addProject(project) {
-    this.projects.push(project);
-  }
+  const getProject = name => {
+    return projects.find(project => project.name === name);
+  };
 
-  getProject(name) {
-    return this.projects.find(project => project.name === name);
-  }
+  const removeProject = index => {
+    projects.splice(index, 1);
+  };
 
-  getAllProjects() {
-    return this.projects;
-  }
-}
+  const getAllProjects = () => {
+    return projects;
+  };
+  return { addProject, getProject, removeProject, getAllProjects };
+})();
 
 export { TodoList };

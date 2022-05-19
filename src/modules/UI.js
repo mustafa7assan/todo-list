@@ -5,8 +5,7 @@ import { Todo } from './Todo';
 import { TodoList } from './TodoList';
 
 const today = new Project('today');
-const todoList = new TodoList();
-todoList.addProject(today);
+TodoList.addProject(today);
 
 let currentProject = today;
 
@@ -35,23 +34,21 @@ const UI = (() => {
   const projectListContainer = document.querySelector('.projects__list');
   const init = () => {
     projectNameEl.textContent = currentProject.getName;
+    // Event Listeners
     btnAddTodo.addEventListener('click', showModal);
     btnCancle.addEventListener('click', hideModal);
-    formAddTodo.addEventListener('submit', e => {
-      e.preventDefault();
-      addNewTodo();
-    });
     btnAddProject.addEventListener('click', () => {
       fromAddProject.classList.toggle('hidden');
-    });
-    fromAddProject.addEventListener('submit', addNewProject);
-    todayEl.addEventListener('click', () => {
-      currentProject = todoList.getProject('today');
-      ShowTodos(currentProject);
     });
     btnProjectsExpand.addEventListener('click', () => {
       projectListContainer.classList.toggle('hidden');
     });
+    fromAddProject.addEventListener('submit', addNewProject);
+    todayEl.addEventListener('click', () => {
+      currentProject = TodoList.getProject('today');
+      ShowTodos(currentProject);
+    });
+    formAddTodo.addEventListener('submit', addNewTodo);
   };
 
   const showModal = () => {
@@ -65,7 +62,8 @@ const UI = (() => {
   };
 
   // Add New Todo
-  const addNewTodo = () => {
+  const addNewTodo = e => {
+    e.preventDefault();
     const todoTitle = inputTodoTitle.value;
     const todoDescription = inputTodoDescription.value;
     const todoDate = inputTodoDate.value.split('-').reverse().join('/');
@@ -77,6 +75,32 @@ const UI = (() => {
     );
     ShowTodos(currentProject);
   };
+
+  // Edit Todo
+
+  const editTodo = e => {
+    e.preventDefault();
+    const todoTitle = document.getElementById('todo-title-ed').value;
+    const todoDescription = document.getElementById(
+      'todo-description-ed'
+    ).value;
+    const todoDate = document
+      .getElementById('todo-date-ed')
+      .value.split('-')
+      .reverse()
+      .join('/');
+    const todoPriority = document.getElementById('todo-priority-ed').value;
+    console.log(todoTitle, todoDescription, todoDate, todoPriority);
+    const index = e.target.parentElement.dataset.index;
+    const todo = currentProject.getTodo(+index);
+    todo.setTitle = todoTitle;
+    todo.setDescription = todoDescription;
+    todo.setDueDate = todoDate;
+    todo.setPriority = todoPriority;
+    e.target.parentElement.classList.toggle('hidden');
+    ShowTodos(currentProject);
+  };
+
   // Add New Project
   const addNewProject = e => {
     e.preventDefault();
@@ -85,7 +109,7 @@ const UI = (() => {
       fromAddProject.classList.toggle('hidden');
       // Create New Project
       const project = new Project(pName);
-      todoList.addProject(project);
+      TodoList.addProject(project);
       showProjects();
       e.target.reset();
     }
@@ -97,14 +121,16 @@ const UI = (() => {
     const todos = project.getAllTodos();
     projectsTodos.innerHTML = '';
     for (const [index, todo] of todos.entries()) {
-      const html = `<div class="todo-container priority-${todo.getPriority}" data-id="${index}">
+      const html = `<div class="todo-container priority-${
+        todo.getPriority
+      }" data-id="${index}">
       <div class="todo">
         <div class="todo__title">
           <i class="fa-regular fa-circle-check done-icon" data-done=${index} title="Done" ></i>
           <span class="todo__text">${todo.getTitle}</span>
         </div>
         <div class="todo__controls">
-          <i class="fa-regular fa-pen-to-square edit-icon" title="Edit Task"></i>
+          <i class="fa-regular fa-pen-to-square edit-icon"  data-edit="${index}" title="Edit Task"></i>
           <i class="fa-solid fa-circle-info details-icon" data-details="${index}" title="Task Details" ></i>
         </div>
       </div>
@@ -126,6 +152,52 @@ const UI = (() => {
           </div>
         </div>
       </div>
+      <div class="todo__edit hidden" data-index="${index}">
+              <form class="edit-todo-form">
+                <ul>
+                  <li>
+                    <label for="todo-title-ed">Task Title</label>
+                    <input type="text" id="todo-title-ed"  value="${
+                      todo.getTitle
+                    }" required />
+                  </li>
+                  <li>
+                    <label for="todo-decription-ed">Task Description</label>
+                    <textarea
+                      name=""
+                      id="todo-description-ed"
+                      cols="30"
+                      rows="5"
+                    
+                      required
+                    > ${todo.getDescription}</textarea>
+                  </li>
+                  <li class="two-input">
+                    <div>
+                      <label for="todo-date-ed">Task Date</label>
+                      <input type="date"  id="todo-date-ed" value="${todo.getDueDate
+                        .split('/')
+                        .reverse()
+                        .join('-')}" required />
+                    </div>
+                    <div>
+                      <label for="todo-priority-ed">Task Priority</label>
+                      <select name="" id="todo-priority-ed" required>
+                        <option value="${
+                          todo.getPriority
+                        }"  disabled selected>Pirority ${
+        todo.getPriority
+      }</option>
+                        <option value="1">Pirority 1</option>
+                        <option value="2">Pirority 2</option>
+                        <option value="3">Pirority 3</option>
+                      </select>
+                    </div>
+                  </li>
+                </ul>
+                <button class="btn form__btn-save" type="submit">Save</button>
+              </form>
+            </div>
     </div>`;
       projectsTodos.insertAdjacentHTML('afterbegin', html);
     }
@@ -136,8 +208,13 @@ const UI = (() => {
         const todoDeatils = [
           ...document.querySelectorAll('.todo__details'),
         ].find(todoDeatils => todoDeatils.dataset.index === index);
+        const todoEdit = [...document.querySelectorAll('.todo__edit')].find(
+          todoEdit => todoEdit.dataset.index === index
+        );
         // hide && show todo details
         todoDeatils.classList.toggle('hidden');
+        // hide && show todo Edit
+        todoEdit.classList.add('hidden');
       });
     });
     // Done Button
@@ -153,24 +230,53 @@ const UI = (() => {
         projectsTodos.removeChild(todoContainer);
       });
     });
+    // Edit Button
+    projectsTodos.querySelectorAll('.edit-icon').forEach(editIcon => {
+      editIcon.addEventListener('click', e => {
+        const index = e.target.dataset.edit;
+        const todoEdit = [...document.querySelectorAll('.todo__edit')].find(
+          todoEdit => todoEdit.dataset.index === index
+        );
+        const todoDeatils = [
+          ...document.querySelectorAll('.todo__details'),
+        ].find(todoDeatils => todoDeatils.dataset.index === index);
+        // hide && show todo details
+        todoEdit.classList.toggle('hidden');
+        // hide && show todo details
+        todoDeatils.classList.add('hidden');
+      });
+    });
+    // Edit Form
+    projectsTodos.querySelectorAll('.edit-todo-form').forEach(editForm => {
+      editForm.addEventListener('submit', editTodo);
+    });
   };
 
   // Display All Projects
   const showProjects = () => {
-    const projects = todoList.getAllProjects();
+    const projects = TodoList.getAllProjects();
     projectListContainer.innerHTML = '';
-    for (const project of projects) {
+    for (const [index, project] of projects.entries()) {
       if (project.getName === 'today') continue;
-      const li = `<li><i class="fa-solid fa-list-check"></i>${project.getName}</li>`;
+      const li = `<li><i class="fa-solid fa-list-check"></i>${project.getName}<i class="fa-solid fa-trash btn-delete-project" title="Delete" data-index="${index}"></i></li>`;
       projectListContainer.insertAdjacentHTML('afterbegin', li);
-      document.querySelectorAll('.projects__list li').forEach(li => {
-        li.addEventListener('click', () => {
-          const projectName = li.textContent.toLowerCase();
-          currentProject = todoList.getProject(projectName);
-          ShowTodos(currentProject);
-        });
-      });
     }
+    // showing Project's todo
+    document.querySelectorAll('.projects__list li').forEach(li => {
+      li.addEventListener('click', () => {
+        const projectName = li.textContent.toLowerCase();
+        currentProject = TodoList.getProject(projectName) || today;
+        ShowTodos(currentProject);
+      });
+    });
+    // Delete proejct
+    document.querySelectorAll('.btn-delete-project').forEach(delteButton => {
+      delteButton.addEventListener('click', e => {
+        const index = e.target.dataset.index;
+        TodoList.removeProject(+index);
+        showProjects();
+      });
+    });
   };
 
   return { init };
