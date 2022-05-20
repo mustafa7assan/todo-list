@@ -1,23 +1,23 @@
 'use strict';
-const TodoList = (function () {
-  const projects = [];
+import { Storage } from './Storage';
 
+const todoList = (() => {
   const addProject = project => {
-    projects.push(project);
+    Storage.saveProject(project);
   };
-
   const getProject = name => {
+    const projects = Storage.retriveProjects();
     return projects.find(project => project.name === name);
   };
 
   const removeProject = index => {
-    projects.splice(index, 1);
+    Storage.deleteProject(index);
   };
 
-  const getAllProjects = () => {
-    return projects;
+  const getProjects = () => {
+    return Storage.retriveProjects();
   };
-  return { addProject, getProject, removeProject, getAllProjects };
+  return { addProject, getProject, getProjects, removeProject };
 })();
 
-export { TodoList };
+export { todoList };

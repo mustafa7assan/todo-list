@@ -2,10 +2,11 @@
 
 import { Project } from './Project';
 import { Todo } from './Todo';
-import { TodoList } from './TodoList';
+import { todoList } from './TodoList';
+import { Storage } from './Storage';
 
 const today = new Project('today');
-TodoList.addProject(today);
+todoList.addProject(today);
 
 let currentProject = today;
 
@@ -33,7 +34,7 @@ const UI = (() => {
   const projectsTodos = document.querySelector('.projects-todos');
   const projectListContainer = document.querySelector('.projects__list');
   const init = () => {
-    projectNameEl.textContent = currentProject.getName;
+    projectNameEl.textContent = currentProject.name;
     // Event Listeners
     btnAddTodo.addEventListener('click', showModal);
     btnCancle.addEventListener('click', hideModal);
@@ -45,10 +46,12 @@ const UI = (() => {
     });
     fromAddProject.addEventListener('submit', addNewProject);
     todayEl.addEventListener('click', () => {
-      currentProject = TodoList.getProject('today');
+      currentProject = todoList.getProject('today');
       ShowTodos(currentProject);
     });
     formAddTodo.addEventListener('submit', addNewTodo);
+    showProjects();
+    ShowTodos(today);
   };
 
   const showModal = () => {
@@ -70,14 +73,18 @@ const UI = (() => {
     const todoPriority = inputTodoPriority.value;
     hideModal();
     formAddTodo.reset();
-    currentProject.addTodo(
-      new Todo(todoTitle, todoDescription, todoDate, todoPriority)
-    );
+    const todo = new Todo(todoTitle, todoDescription, todoDate, todoPriority);
+    // currentProject.todos.push(
+    //   new Todo(todoTitle, todoDescription, todoDate, todoPriority)
+    // );
+
+    // local Stroage
+    Storage.saveTodo(currentProject.name, todo);
+    // Save new Todo to local Storage
     ShowTodos(currentProject);
   };
 
-  // Edit Todo
-
+  // Edit Todo function
   const editTodo = e => {
     e.preventDefault();
     const todoTitle = document.getElementById('todo-title-ed').value;
@@ -90,44 +97,34 @@ const UI = (() => {
       .reverse()
       .join('/');
     const todoPriority = document.getElementById('todo-priority-ed').value;
-    console.log(todoTitle, todoDescription, todoDate, todoPriority);
     const index = e.target.parentElement.dataset.index;
-    const todo = currentProject.getTodo(+index);
-    todo.setTitle = todoTitle;
-    todo.setDescription = todoDescription;
-    todo.setDueDate = todoDate;
-    todo.setPriority = todoPriority;
+    // Delete todo from local Stroage
+    const todo = Storage.deleteTodo(currentProject.name, +index);
+    deleteTodoFromUI(index);
+    todo.title = todoTitle;
+    todo.description = todoDescription;
+    todo.dueDate = todoDate;
+    todo.priority = todoPriority;
+    // Add todo to local Storage
+    Storage.saveTodo(currentProject.name, todo);
     e.target.parentElement.classList.toggle('hidden');
     ShowTodos(currentProject);
   };
 
-  // Add New Project
-  const addNewProject = e => {
-    e.preventDefault();
-    const pName = inputProjectName.value.toLowerCase();
-    if (pName !== ' ') {
-      fromAddProject.classList.toggle('hidden');
-      // Create New Project
-      const project = new Project(pName);
-      TodoList.addProject(project);
-      showProjects();
-      e.target.reset();
-    }
-  };
-
   // Disaply All Dodos for a Project
   const ShowTodos = project => {
-    projectNameEl.textContent = project.getName;
-    const todos = project.getAllTodos();
+    projectNameEl.textContent = project.name;
+    // Get all Todos from this projects
+    const todos = Storage.retriveTodos(project.name) || [];
     projectsTodos.innerHTML = '';
     for (const [index, todo] of todos.entries()) {
       const html = `<div class="todo-container priority-${
-        todo.getPriority
+        todo.priority
       }" data-id="${index}">
       <div class="todo">
         <div class="todo__title">
           <i class="fa-regular fa-circle-check done-icon" data-done=${index} title="Done" ></i>
-          <span class="todo__text">${todo.getTitle}</span>
+          <span class="todo__text">${todo.title}</span>
         </div>
         <div class="todo__controls">
           <i class="fa-regular fa-pen-to-square edit-icon"  data-edit="${index}" title="Edit Task"></i>
@@ -138,17 +135,17 @@ const UI = (() => {
         <div class="todo__description">
           <h4>Description</h4>
           <p>
-           ${todo.getDescription}
+           ${todo.description}
           </p>
         </div>
         <div>
           <div class="todo__date">
             <h4>Date</h4>
-            <p>${todo.getDueDate}</p>
+            <p>${todo.dueDate}</p>
           </div>
           <div class="todo__priority">
             <h4>Priority</h4>
-            <p>Level ${todo.getPriority}</p>
+            <p>Level ${todo.priority}</p>
           </div>
         </div>
       </div>
@@ -158,7 +155,7 @@ const UI = (() => {
                   <li>
                     <label for="todo-title-ed">Task Title</label>
                     <input type="text" id="todo-title-ed"  value="${
-                      todo.getTitle
+                      todo.title
                     }" required />
                   </li>
                   <li>
@@ -168,14 +165,13 @@ const UI = (() => {
                       id="todo-description-ed"
                       cols="30"
                       rows="5"
-                    
                       required
-                    > ${todo.getDescription}</textarea>
+                    > ${todo.description}</textarea>
                   </li>
                   <li class="two-input">
                     <div>
                       <label for="todo-date-ed">Task Date</label>
-                      <input type="date"  id="todo-date-ed" value="${todo.getDueDate
+                      <input type="date"  id="todo-date-ed" value="${todo.dueDate
                         .split('/')
                         .reverse()
                         .join('-')}" required />
@@ -183,11 +179,8 @@ const UI = (() => {
                     <div>
                       <label for="todo-priority-ed">Task Priority</label>
                       <select name="" id="todo-priority-ed" required>
-                        <option value="${
-                          todo.getPriority
-                        }"  disabled selected>Pirority ${
-        todo.getPriority
-      }</option>
+                        <option value="${todo.priority}"  disabled selected>
+                        Pirority${todo.priority}                 </option>
                         <option value="1">Pirority 1</option>
                         <option value="2">Pirority 2</option>
                         <option value="3">Pirority 3</option>
@@ -222,12 +215,9 @@ const UI = (() => {
       doneIcon.addEventListener('click', e => {
         const index = e.target.dataset.done;
         // remove todo from current project
-        currentProject.removeTodo(+index);
-        const todoContainer = [
-          ...projectsTodos.querySelectorAll('.todo-container'),
-        ].find(tc => tc.dataset.id === index);
-        // remove todo from current proejct ui
-        projectsTodos.removeChild(todoContainer);
+        //currentProject.todos.splice(index, 1);
+        Storage.deleteTodo(currentProject.name, +index);
+        deleteTodoFromUI(index);
       });
     });
     // Edit Button
@@ -252,20 +242,42 @@ const UI = (() => {
     });
   };
 
+  const deleteTodoFromUI = index => {
+    const todoContainer = [
+      ...projectsTodos.querySelectorAll('.todo-container'),
+    ].find(tc => tc.dataset.id === index);
+    // remove todo from current project ui
+    projectsTodos.removeChild(todoContainer);
+  };
+
+  // Add New Project
+  const addNewProject = e => {
+    e.preventDefault();
+    const projectName = inputProjectName.value.toLowerCase();
+    if (projectName !== ' ') {
+      fromAddProject.classList.toggle('hidden');
+      // Create New Project
+      const project = new Project(projectName);
+      todoList.addProject(project);
+      showProjects();
+      e.target.reset();
+    }
+  };
   // Display All Projects
   const showProjects = () => {
-    const projects = TodoList.getAllProjects();
+    // Get all Projects From local Storage
+    const projects = todoList.getProjects() || [];
     projectListContainer.innerHTML = '';
     for (const [index, project] of projects.entries()) {
-      if (project.getName === 'today') continue;
-      const li = `<li><i class="fa-solid fa-list-check"></i>${project.getName}<i class="fa-solid fa-trash btn-delete-project" title="Delete" data-index="${index}"></i></li>`;
+      if (project.name === 'today') continue;
+      const li = `<li><i class="fa-solid fa-list-check"></i>${project.name}<i class="fa-solid fa-trash btn-delete-project" title="Delete" data-index="${index}"></i></li>`;
       projectListContainer.insertAdjacentHTML('afterbegin', li);
     }
     // showing Project's todo
     document.querySelectorAll('.projects__list li').forEach(li => {
       li.addEventListener('click', () => {
         const projectName = li.textContent.toLowerCase();
-        currentProject = TodoList.getProject(projectName) || today;
+        currentProject = todoList.getProject(projectName) || today;
         ShowTodos(currentProject);
       });
     });
@@ -273,7 +285,7 @@ const UI = (() => {
     document.querySelectorAll('.btn-delete-project').forEach(delteButton => {
       delteButton.addEventListener('click', e => {
         const index = e.target.dataset.index;
-        TodoList.removeProject(+index);
+        todoList.removeProject(+index);
         showProjects();
       });
     });
