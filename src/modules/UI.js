@@ -70,7 +70,7 @@ const UI = (() => {
     const todoTitle = inputTodoTitle.value;
     const todoDescription = inputTodoDescription.value;
     const todoDate = inputTodoDate.value.split('-').reverse().join('/');
-    const todoPriority = inputTodoPriority.value;
+    const todoPriority = +inputTodoPriority.value;
     hideModal();
     formAddTodo.reset();
     const todo = new Todo(todoTitle, todoDescription, todoDate, todoPriority);
@@ -96,7 +96,7 @@ const UI = (() => {
       .value.split('-')
       .reverse()
       .join('/');
-    const todoPriority = document.getElementById('todo-priority-ed').value;
+    const todoPriority = +document.getElementById('todo-priority-ed').value;
     const index = e.target.parentElement.dataset.index;
     // Delete todo from local Stroage
     const todo = Storage.deleteTodo(currentProject.name, +index);
@@ -115,7 +115,11 @@ const UI = (() => {
   const ShowTodos = project => {
     projectNameEl.textContent = project.name;
     // Get all Todos from this projects
-    const todos = Storage.retriveTodos(project.name) || [];
+    const todos =
+      Storage.retriveTodos(project.name)?.sort(
+        (t1, t2) => t2.priority - t1.priority
+      ) || [];
+    console.log(todos);
     projectsTodos.innerHTML = '';
     for (const [index, todo] of todos.entries()) {
       const html = `<div class="todo-container priority-${
@@ -180,7 +184,7 @@ const UI = (() => {
                       <label for="todo-priority-ed">Task Priority</label>
                       <select name="" id="todo-priority-ed" required>
                         <option value="${todo.priority}"  disabled selected>
-                        Pirority${todo.priority}                 </option>
+                        Pirority ${todo.priority} </option>
                         <option value="1">Pirority 1</option>
                         <option value="2">Pirority 2</option>
                         <option value="3">Pirority 3</option>
@@ -260,6 +264,7 @@ const UI = (() => {
       const project = new Project(projectName);
       todoList.addProject(project);
       showProjects();
+      ShowTodos(project);
       e.target.reset();
     }
   };
