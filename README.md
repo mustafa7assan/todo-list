@@ -14,7 +14,7 @@ Application Demo: https://mustafa7assan.github.io/todo-list/
 - Show Details of Task
 - Add New Project
 - Delete Project
-- All Data is saved In localStorge
+- All Data is saved In localStorage
 
 # Others
 - I Used wepback as modules bundlers
