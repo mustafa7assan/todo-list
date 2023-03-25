@@ -1,0 +1,27 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "simple todo list app using javascript",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mustafa7assan/todo-list.git"
+  },
+  "author": "Mustafa Hassan (mustafahassan.dev@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mustafa7assan/todo-list/issues"
+  },
+  "homepage": "https://github.com/mustafa7assan/todo-list#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
+  }
+}
