@@ -1,2 +1,5 @@
 import "./css/style.css";
-console.log("Hello, World");
+import header from "./components/header";
+
+const app = document.querySelector(".app");
+app.insertAdjacentElement("beforebegin", header());

@@ -3,7 +3,47 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+:root {
+  --main-bg-color: #9c27b0;
+}
 body {
-  background-color: #eee;
+  background-color: #fff;
+  color: #333;
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+header {
+  background-color: var(--main-bg-color);
+  color: white;
+}
+nav {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.logo h1 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+.icon {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
