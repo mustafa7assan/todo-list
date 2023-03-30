@@ -149,6 +149,7 @@ select:focus {
   border-radius: 5px;
   margin-bottom: 15px;
   position: relative;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .high {
   border-left: 5px solid #e91e63;

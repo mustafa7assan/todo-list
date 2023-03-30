@@ -44,6 +44,13 @@ const taskCard = (task, index) => {
     task.done();
     taskManager.showTasks();
   });
+  // Delete Button
+  const deleteButton = card.querySelector(".task-delete");
+  deleteButton.addEventListener("click", () => {
+    const popper = deleteButton.parentElement;
+    taskManager.deleteTask(index);
+    popper.classList.toggle("hidden");
+  });
   return card;
 };
 
