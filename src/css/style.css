@@ -12,9 +12,14 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 .container {
   width: 90%;
   margin: auto;
+  max-width: 600px;
 }
 
 header {
@@ -46,4 +51,138 @@ nav {
   width: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+main {
+  margin-top: 10px;
+}
+.btn {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.add-task-btn {
+  font-size: 14px;
+  background-color: unset;
+  display: flex;
+  align-items: center;
+}
+.add-task-btn .icon {
+  height: 24px;
+  width: 24px;
+}
+.add-task-form {
+  border-radius: 5px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+.form-row {
+  margin-bottom: 15px;
+}
+.add-task-form .form-row input,
+.add-task-form .form-row textarea,
+.add-task-form .form-row select {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #ba68c8;
+  box-shadow: 0 0 5px #ba68c8;
+}
+.add-task-form .form-row textarea {
+  resize: none;
+  height: 150px;
+}
+.add-task-form .form-row label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.add-task-form .form-row .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.add-task-form .form-row .buttons button {
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+.add-task-form .form-row .buttons :last-child {
+  background-color: var(--main-bg-color);
+  color: white;
+}
+
+.tasks-container {
+  margin-top: 10px;
+}
+.task-card {
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+  gap: 10px;
+  border-radius: 5px;
+  border-left: 5px solid var(--main-bg-color);
+  margin-bottom: 10px;
+  position: relative;
+}
+.task-card .task-content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
+}
+.task-card .task-content .task-title {
+  padding-top: 4px;
+  font-weight: 500;
+}
+.task-card .task-content .task-description {
+  font-size: 14px;
+  color: #444444;
+}
+.task-card .task-content .task-duedate {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #444444;
+}
+.task-card .task-pop {
+  padding-top: 5px;
+  position: absolute;
+  right: -15px;
+  top: 30px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.task-card .task-pop .icon,
+.task-card .task-content .task-duedate .icon {
+  height: 20px;
+  width: 20px;
+}
+.task-card .task-pop div {
+  padding: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.task-card .task-pop div:hover {
+  background-color: #fafafa;
 }
