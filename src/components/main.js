@@ -1,5 +1,4 @@
 import taskManager from "./TaskManager";
-import taskCard from "./taskCard";
 import taskForm from "./taskForm";
 const addTaskButton = () => {
   const button = document.createElement("button");
@@ -19,12 +18,15 @@ const main = () => {
   const main = document.createElement("main");
   const container = document.createElement("div");
   container.classList.add("container");
-  const tasksContainer = document.createElement("div");
-  tasksContainer.classList.add("tasks-container");
+  const tasks = document.createElement("div");
+  const dones = document.createElement("div");
+  tasks.classList.add("tasks-container");
+  dones.classList.add("dones-container");
   // Append child
   container.appendChild(addTaskButton());
   container.appendChild(taskForm());
-  container.appendChild(tasksContainer);
+  container.appendChild(tasks);
+  container.appendChild(dones);
   main.appendChild(container);
   return main;
 };

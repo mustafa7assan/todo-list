@@ -72,6 +72,7 @@ main {
   height: 24px;
   width: 24px;
 }
+
 .add-task-form {
   border-radius: 5px;
   padding: 20px;
@@ -91,6 +92,7 @@ main {
   border-radius: 5px;
   padding: 5px;
   font-size: 12px;
+  font-family: inherit;
   outline: none;
 }
 
@@ -127,6 +129,17 @@ select:focus {
 .tasks-container {
   margin-top: 10px;
 }
+
+.dones-container {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+}
+.dones-container > h3 {
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
 .task-card {
   border: 1px solid #ccc;
   display: flex;
@@ -134,19 +147,28 @@ select:focus {
   padding: 5px;
   gap: 10px;
   border-radius: 5px;
-  border-left: 5px solid var(--main-bg-color);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   position: relative;
+}
+.high {
+  border-left: 5px solid #e91e63;
+}
+.medium {
+  border-left: 5px solid #00d1ff;
+}
+.low {
+  border-left: 5px solid #ffc1e3;
 }
 .task-card .task-content {
   flex: 2;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  gap: 10px;
+  gap: 5px;
 }
 .task-card .task-content .task-title {
   padding-top: 4px;
+  font-size: 18px;
   font-weight: 500;
 }
 .task-card .task-content .task-description {
@@ -158,6 +180,7 @@ select:focus {
   align-items: center;
   gap: 5px;
   color: #444444;
+  font-size: 14px;
 }
 .task-card .task-pop {
   padding-top: 5px;
