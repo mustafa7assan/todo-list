@@ -111,6 +111,7 @@ select:focus {
   margin-bottom: 5px;
   font-size: 12px;
   font-weight: 500;
+  display: none;
 }
 .add-task-form .form-row .buttons {
   display: flex;
@@ -119,7 +120,7 @@ select:focus {
 .add-task-form .form-row .buttons button {
   padding: 5px 15px;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .add-task-form .form-row .buttons :last-child {
   background-color: var(--main-bg-color);
@@ -151,6 +152,10 @@ select:focus {
   position: relative;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+.task-card .icon {
+  width: 20px;
+  height: 20px;
+}
 .high {
   border-left: 5px solid #e91e63;
 }
@@ -165,23 +170,40 @@ select:focus {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  gap: 5px;
+}
+.task-card .task-content > *,
+.task-duedate {
+  padding: 4px;
+  border: 1px solid transparent;
+}
+.task-card .task-content > *:focus,
+.task-duedate:focus {
+  border-color: #ccc;
+  outline: none;
+  border-radius: 5px;
 }
 .task-card .task-content .task-title {
-  padding-top: 4px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 .task-card .task-content .task-description {
   font-size: 14px;
   color: #444444;
 }
-.task-card .task-content .task-duedate {
+.task-card .task-content .task-duedate-container {
   display: flex;
   align-items: center;
   gap: 5px;
   color: #444444;
   font-size: 14px;
+}
+.task-card .task-content .task-duedate-container button {
+  margin-left: auto;
+  padding: 5px 10px;
+  color: white;
+  font-weight: 600;
+  background-color: var(--main-bg-color);
+  border-radius: 5px;
 }
 .task-card .task-pop {
   padding-top: 5px;
@@ -209,4 +231,8 @@ select:focus {
 }
 .task-card .task-pop div:hover {
   background-color: #fafafa;
+}
+.task-menu,
+.task-done {
+  padding-top: 5px;
 }

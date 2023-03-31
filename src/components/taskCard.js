@@ -13,9 +13,11 @@ const taskCard = (task, index) => {
       <p class="task-description">
         ${task.description}
       </p>
-      <p class="task-duedate">
-        <img src="../src/img/date.svg" class="icon" alt="" /> ${task.dueDate}
-      </p>
+      <div class="task-duedate-container" >
+      <img src="../src/img/date.svg" class="icon" alt="" />
+      <p class="task-duedate"> ${task.dueDate} </p>
+      <button class="btn hidden save">Save</button>
+      </div>
     </div>
     <div class="task-menu">
       <img src="../src/img/dots.svg" class="icon" alt="" />
@@ -31,6 +33,24 @@ const taskCard = (task, index) => {
     </div>
 `;
   card.insertAdjacentHTML("afterbegin", html);
+  // Save Button
+  const saveButton = card.querySelector(".save");
+  saveButton.addEventListener("click", () => {
+    const taskTitleElement = card.querySelector(".task-title");
+    const taskDescriptionElement = card.querySelector(".task-description");
+    const taskDueDateElement = card.querySelector(".task-duedate");
+    makeUnEditable(
+      taskDueDateElement,
+      taskDescriptionElement,
+      taskTitleElement
+    );
+    const task = taskManager.getTask(index);
+    task.title = taskTitleElement.textContent;
+    task.description = taskDescriptionElement.textContent;
+    task.dueDate = taskDueDateElement.textContent;
+    taskManager.showTasks();
+    saveButton.classList.toggle("hidden");
+  });
   // Menu Button
   const cardMenu = card.querySelector(".task-menu");
   cardMenu.addEventListener("click", () => {
@@ -51,7 +71,31 @@ const taskCard = (task, index) => {
     taskManager.deleteTask(index);
     popper.classList.toggle("hidden");
   });
+  // Edit Button
+  const editButton = card.querySelector(".task-edit");
+  editButton.addEventListener("click", () => {
+    saveButton.classList.toggle("hidden");
+    const taskTitleElement = card.querySelector(".task-title");
+    const taskDescriptionElement = card.querySelector(".task-description");
+    const taskDueDateElement = card.querySelector(".task-duedate");
+    makeEditable(taskDueDateElement, taskDescriptionElement, taskTitleElement);
+    taskTitleElement.focus();
+    const popper = deleteButton.parentElement;
+    popper.classList.toggle("hidden");
+  });
   return card;
+};
+
+const makeEditable = (...elements) => {
+  for (const element of elements) {
+    element.contentEditable = true;
+  }
+};
+
+const makeUnEditable = (...elements) => {
+  for (const element of elements) {
+    element.contentEditable = false;
+  }
 };
 
 export default taskCard;

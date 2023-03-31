@@ -5,21 +5,18 @@ const taskForm = () => {
   form.classList.add("hidden");
   const html = `
   <div class="form-row">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" required/>
+    <input type="text" name="title" id="title" placeholder="Title" required/>
   </div>
   <div class="form-row">
-    <label for="description">Description</label>
-    <textarea name="description" id="description" required></textarea>
+    <textarea name="description" id="description"  placeholder="Description" required></textarea>
   </div>
   <div class="form-row">
-    <label for="duedate">Due Date</label>
     <input type="date" name="duedate" id="duedate" required/>
   </div>
   <div class="form-row">
-    <label for="priority">Priority</label>
     <select name="priority" id="priority" required>
-      <option value="high" selected>High</option>
+    <option value="" disabled selected>Priority</option>
+      <option value="high">High</option>
       <option value="medium">Medium</option>
       <option value="low">Low</option>
     </select>
