@@ -281,6 +281,7 @@ aside {
   justify-content: space-between;
   position: relative;
   font-size: 14px;
+  margin-bottom: 5px;
 }
 .project .icon {
   height: 20px;
@@ -291,6 +292,7 @@ aside {
 }
 .project-pop {
   position: absolute;
+  z-index: 2;
   top: 25px;
   right: -45px;
   background-color: white;
@@ -327,4 +329,10 @@ aside {
   font-weight: 600;
   background-color: var(--main-bg-color);
   border-radius: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  aside {
+    display: none;
+  }
 }

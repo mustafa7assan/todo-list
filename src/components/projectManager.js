@@ -1,14 +1,26 @@
 import projectCard from "./projectCard";
+import Project from "./Project";
 const projectManager = (() => {
-  const projects = ["Welcome", "Try Board", "Assignments"];
+  const projects = [];
+  const addProject = (title) => {
+    const project = new Project(title);
+    projects.push(project);
+    showProjects();
+  };
 
+  const deleteProject = (index) => {
+    projects.splice(index, 1);
+    showProjects();
+  };
   const showProjects = () => {
     const projectsContainer = document.querySelector(".projects");
-    for (const project of projects) {
-      projectsContainer.appendChild(projectCard(project));
+    projectsContainer.innerHTML = "";
+    for (let i = 0; i < projects.length; i++) {
+      const project = projects[i];
+      projectsContainer.appendChild(projectCard(project, i));
     }
   };
-  return { showProjects };
+  return { addProject, deleteProject, showProjects };
 })();
 
 export default projectManager;

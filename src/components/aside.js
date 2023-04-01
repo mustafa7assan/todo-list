@@ -15,15 +15,11 @@ const aside = () => {
   aside.insertAdjacentHTML("afterbegin", html);
   aside.appendChild(projectForm());
   aside.appendChild(projectsContainer);
+  const addProjectButton = aside.querySelector(".add-project");
+  addProjectButton.addEventListener("click", () => {
+    const form = aside.querySelector("form");
+    form.classList.toggle("hidden");
+  });
   return aside;
 };
-
-const html = `
-
-  
-  <ul class="projects">
-    
-  </ul>
-</div>
-</aside>`;
 export default aside;
