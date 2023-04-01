@@ -1,4 +1,5 @@
 import projectManager from "./projectManager";
+import currentProject from "./currentProject";
 const projectCard = (project, index) => {
   const card = document.createElement("li");
   card.classList.add("project");
@@ -17,9 +18,20 @@ const projectCard = (project, index) => {
   </div>`;
 
   card.insertAdjacentHTML("afterbegin", html);
+  // Show projects tasks
+  card.addEventListener("click", () => {
+    const title = card
+      .querySelector(".project-name")
+      .textContent.trim()
+      .toLowerCase();
+    const project = projectManager.getProject(title);
+    currentProject.project = project;
+    currentProject.project.tm.showTasks();
+  });
   // Dots Menu Button
   const menuButton = card.querySelector(".dots");
-  menuButton.addEventListener("click", () => {
+  menuButton.addEventListener("click", (e) => {
+    e.stopPropagation();
     const popper = card.querySelector(".project-pop");
     popper.classList.toggle("hidden");
   });

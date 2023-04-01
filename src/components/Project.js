@@ -1,7 +1,8 @@
+import taskManager from "./TaskManager";
 class Project {
   constructor(title) {
     this.title = title;
-    this.tasks = [];
+    this.tm = new taskManager();
   }
 }
 

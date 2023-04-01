@@ -1,4 +1,6 @@
 import projectForm from "./projectForm";
+import currentProject from "./currentProject";
+import projectManager from "./projectManager";
 const aside = () => {
   const aside = document.createElement("aside");
   const projectsContainer = document.createElement("ul");
@@ -15,11 +17,21 @@ const aside = () => {
   aside.insertAdjacentHTML("afterbegin", html);
   aside.appendChild(projectForm());
   aside.appendChild(projectsContainer);
+  // Today Project
+
+  const today = aside.querySelector(".today");
+  today.addEventListener("click", () => {
+    const project = projectManager.getProject("today");
+    currentProject.project = project;
+    currentProject.project.tm.showTasks();
+  });
+  // New Project Form
   const addProjectButton = aside.querySelector(".add-project");
   addProjectButton.addEventListener("click", () => {
     const form = aside.querySelector("form");
     form.classList.toggle("hidden");
   });
+
   return aside;
 };
 export default aside;

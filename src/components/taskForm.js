@@ -1,4 +1,4 @@
-import taskManager from "./TaskManager";
+import currentProject from "./currentProject";
 const taskForm = () => {
   const form = document.createElement("form");
   form.classList.add("add-task-form");
@@ -50,7 +50,7 @@ const getTaskData = (e) => {
   const description = form.querySelector("#description").value;
   const dueDate = form.querySelector("#duedate").value;
   const priority = form.querySelector("#priority").value;
-  taskManager.addTask({ title, description, dueDate, priority });
+  currentProject.project.tm.addTask({ title, description, dueDate, priority });
   hideForm();
 };
 

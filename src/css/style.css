@@ -28,7 +28,7 @@ header {
   z-index: 1;
 }
 nav {
-  padding: 15px 0;
+  padding: 15px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -247,7 +247,7 @@ aside {
   padding-top: 30px;
   position: absolute;
   top: 60px;
-  padding-left: 10px;
+  padding-left: 20px;
   padding-right: 10px;
 }
 .projects-container {
@@ -321,7 +321,7 @@ aside {
   border-radius: 5px;
   padding: 3px 5px;
   font-family: inherit;
-  width: 80%;
+  width: 75%;
 }
 .project-form button {
   padding: 3px 7px;
@@ -331,8 +331,7 @@ aside {
   border-radius: 5px;
 }
 
-@media screen and (max-width: 480px) {
-  aside {
-    display: none;
-  }
+.title,
+.project-name {
+  text-transform: capitalize;
 }

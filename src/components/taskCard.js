@@ -1,5 +1,5 @@
 import taskManager from "./TaskManager";
-
+import currentProject from "./currentProject";
 const taskCard = (task, index) => {
   const card = document.createElement("div");
   card.classList.add("task-card");
@@ -44,11 +44,11 @@ const taskCard = (task, index) => {
       taskDescriptionElement,
       taskTitleElement
     );
-    const task = taskManager.getTask(index);
+    const task = currentProject.project.tm.getTask(index);
     task.title = taskTitleElement.textContent;
     task.description = taskDescriptionElement.textContent;
     task.dueDate = taskDueDateElement.textContent;
-    taskManager.showTasks();
+    currentProject.project.tm.showTasks();
     saveButton.classList.toggle("hidden");
   });
   // Menu Button
@@ -60,15 +60,15 @@ const taskCard = (task, index) => {
   // Done Button
   const doneButton = card.querySelector(".task-done");
   doneButton.addEventListener("click", () => {
-    const task = taskManager.getTask(index);
+    const task = currentProject.project.tm.getTask(index);
     task.done();
-    taskManager.showTasks();
+    currentProject.project.tm.showTasks();
   });
   // Delete Button
   const deleteButton = card.querySelector(".task-delete");
   deleteButton.addEventListener("click", () => {
     const popper = deleteButton.parentElement;
-    taskManager.deleteTask(index);
+    currentProject.project.tm.deleteTask(index);
     popper.classList.toggle("hidden");
   });
   // Edit Button

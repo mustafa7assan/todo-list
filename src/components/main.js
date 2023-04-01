@@ -17,12 +17,15 @@ const main = () => {
   // Creating Elements
   const main = document.createElement("main");
   const container = document.createElement("div");
+  const h3 = document.createElement("h3");
+  h3.classList.add("title");
   container.classList.add("container");
   const tasks = document.createElement("div");
   const dones = document.createElement("div");
   tasks.classList.add("tasks-container");
   dones.classList.add("dones-container");
   // Append child
+  container.appendChild(h3);
   container.appendChild(addTaskButton());
   container.appendChild(taskForm());
   container.appendChild(tasks);

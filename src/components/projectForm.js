@@ -9,7 +9,7 @@ const projectForm = () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const title = form.querySelector("#project-title");
-    projectManager.addProject(title.value);
+    projectManager.addProject(title.value.trim().toLowerCase());
     form.reset();
     form.classList.toggle("hidden");
   });
