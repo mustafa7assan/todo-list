@@ -1,10 +1,10 @@
-import taskManager from "./TaskManager";
 import taskForm from "./taskForm";
+import img1 from "../img/plus.svg";
 const addTaskButton = () => {
   const button = document.createElement("button");
   button.classList.add("btn");
   button.classList.add("add-task-btn");
-  const img = `<img src="../src/img/plus.svg" alt="" class="icon" /> Add task`;
+  const img = `<img src="${img1}" alt="" class="icon" /> Add task`;
   button.insertAdjacentHTML("afterbegin", img);
   button.addEventListener("click", () => {
     const form = document.querySelector(".add-task-form");

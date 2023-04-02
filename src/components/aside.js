@@ -1,18 +1,20 @@
 import projectForm from "./projectForm";
 import currentProject from "./currentProject";
 import projectManager from "./projectManager";
+import img1 from "../img/today.svg";
+import img2 from "../img/plus.svg";
 const aside = () => {
   const aside = document.createElement("aside");
   const projectsContainer = document.createElement("ul");
   projectsContainer.classList.add("projects");
   const html = `<div class="project today">
-  <img src="../src/img/today.svg" class="icon" alt="" />
+  <img src="${img1}" class="icon" alt="" />
   <p class="project-name">Today</p>
 </div>
 <div class="projects-container">
   <div class="header">
     Projects
-    <img src="../src/img/plus.svg" class="icon add-project" alt="" />
+    <img src="${img2}" class="icon add-project" alt="" />
   </div>`;
   aside.insertAdjacentHTML("afterbegin", html);
   aside.appendChild(projectForm());

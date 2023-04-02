@@ -1,12 +1,17 @@
-import taskManager from "./TaskManager";
 import currentProject from "./currentProject";
+import t from "../img/t.svg";
+import f from "../img/f.svg";
+import img1 from "../img/date.svg";
+import img2 from "../img/dots.svg";
+import img3 from "../img/edit.svg";
+import img4 from "../img/delete.svg";
 const taskCard = (task, index) => {
   const card = document.createElement("div");
   card.classList.add("task-card");
   card.classList.add(task.priority);
   const html = `
     <div class="task-done">
-      <img src="../src/img/${task.complete}.svg" class="icon" alt="" />
+      <img src="${task.complete ? t : f}" class="icon" alt="" />
     </div>
     <div class="task-content">
       <h3 class="task-title">${task.title}</h3>
@@ -14,20 +19,20 @@ const taskCard = (task, index) => {
         ${task.description}
       </p>
       <div class="task-duedate-container" >
-      <img src="../src/img/date.svg" class="icon" alt="" />
+      <img src="${img1}" class="icon" alt="" />
       <p class="task-duedate"> ${task.dueDate} </p>
       <button class="btn hidden save">Save</button>
       </div>
     </div>
     <div class="task-menu">
-      <img src="../src/img/dots.svg" class="icon" alt="" />
+      <img src="${img2}" class="icon" alt="" />
     </div>
     <div class="task-pop hidden">
       <div class="task-edit">
-        <img src="../src/img/edit.svg" class="icon" alt="" /> Edit task
+        <img src="${img3}" class="icon" alt="" /> Edit task
       </div>
       <div class="task-delete">
-        <img src="../src/img/delete.svg" class="icon" alt="" />Delete
+        <img src="${img4}" class="icon" alt="" />Delete
         task
       </div>
     </div>

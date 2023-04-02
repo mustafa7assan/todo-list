@@ -1,18 +1,21 @@
 import projectManager from "./projectManager";
 import currentProject from "./currentProject";
+import img1 from "../img/dots.svg";
+import img2 from "../img/edit.svg";
+import img3 from "../img/delete.svg";
 const projectCard = (project, index) => {
   const card = document.createElement("li");
   card.classList.add("project");
   const html = `
   <p class="project-name">${project.title}</p>
-  <img src="../src/img/dots.svg" class="icon dots" alt="" />
+  <img src="${img1}" class="icon dots" alt="" />
   <div class="project-pop hidden">
     <div class="project-edit">
-      <img src="../src/img/edit.svg" class="icon" alt="" /> Edit
+      <img src="${img2}" class="icon" alt="" /> Edit
       project
     </div>
     <div class="project-delete">
-      <img src="../src/img/delete.svg" class="icon" alt="" />Delete
+      <img src="${img3}" class="icon" alt="" />Delete
       project
     </div>
   </div>`;
