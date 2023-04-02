@@ -24,6 +24,8 @@ const aside = () => {
     const project = projectManager.getProject("today");
     currentProject.project = project;
     currentProject.project.tm.showTasks();
+    const aside = document.querySelector("aside");
+    aside.classList.toggle("show");
   });
   // New Project Form
   const addProjectButton = aside.querySelector(".add-project");

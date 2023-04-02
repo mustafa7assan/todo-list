@@ -27,6 +27,8 @@ const projectCard = (project, index) => {
     const project = projectManager.getProject(title);
     currentProject.project = project;
     currentProject.project.tm.showTasks();
+    const aside = document.querySelector("aside");
+    aside.classList.toggle("show");
   });
   // Dots Menu Button
   const menuButton = card.querySelector(".dots");
@@ -37,10 +39,17 @@ const projectCard = (project, index) => {
   });
   // delete button project
   const deleteButton = card.querySelector(".project-delete");
-  deleteButton.addEventListener("click", () => {
+  deleteButton.addEventListener("click", (e) => {
+    e.stopPropagation();
     projectManager.deleteProject(index);
     const popper = card.querySelector(".project-pop");
     popper.classList.toggle("hidden");
+    // After Project is deleted
+    const project = projectManager.getProject("today");
+    currentProject.project = project;
+    currentProject.project.tm.showTasks();
+    const aside = document.querySelector("aside");
+    aside.classList.toggle("show");
   });
   return card;
 };
