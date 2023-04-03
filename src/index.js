@@ -1,7 +1,7 @@
 import "./css/style.css";
 import header from "./components/header";
 import main from "./components/main";
-import Project from "./components/Project";
+import footer from "./components/footer";
 import aside from "./components/aside";
 import currentProject from "./components/currentProject";
 import projectManager from "./components/projectManager";
@@ -9,6 +9,7 @@ const app = document.querySelector(".app");
 app.appendChild(header());
 app.appendChild(main());
 app.appendChild(aside());
+app.appendChild(footer());
 projectManager.addProject("today");
 const today = projectManager.getProject("today");
 currentProject.project = today;

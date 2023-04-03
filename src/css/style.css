@@ -10,6 +10,8 @@ body {
   background-color: #fff;
   color: #333;
   font-family: "Inter", sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
 
 .hidden {
@@ -55,6 +57,7 @@ nav {
 }
 main {
   margin-top: 30px;
+  padding-bottom: 50px;
 }
 .btn {
   border: none;
@@ -138,13 +141,13 @@ select:focus {
   padding-top: 30px;
   border-top: 1px solid #ccc;
 }
-.dones-container > h3 {
+.dones-container > h4 {
   text-align: center;
   font-weight: 500;
   margin-bottom: 30px;
 }
 .dones-container .task-card {
-  background-color: #eee;
+  background-color: #ccc;
 }
 .task-card {
   border: 1px solid #ccc;
@@ -162,13 +165,13 @@ select:focus {
   height: 20px;
 }
 .high {
-  border-left: 8px solid #e91e63;
+  border-left: 5px solid #e91e63;
 }
 .medium {
-  border-left: 8px solid #f5e93f;
+  border-left: 5px solid #f5e93f;
 }
 .low {
-  border-left: 8px solid #00d1ff;
+  border-left: 5px solid #00d1ff;
 }
 .task-card .task-content {
   flex: 2;
@@ -342,6 +345,29 @@ aside {
 }
 .show {
   display: block;
+}
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: var(--main-bg-color);
+}
+footer a {
+  text-decoration: none;
+  font-family: inherit;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+footer a .icon {
+  height: 20px;
+  width: 20px;
 }
 @media screen and (max-width: 1200px) {
   aside {

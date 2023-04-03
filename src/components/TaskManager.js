@@ -62,7 +62,7 @@ class taskManager {
     const tasksContainer = document.querySelector(".tasks-container");
     const dones = document.querySelector(".dones-container");
     tasksContainer.innerHTML = "";
-    dones.innerHTML = "<h3>COMPLETED TASKS</h3>";
+    dones.innerHTML = "<h4>Completed Tasks</h4>";
     const tasks = this.getTaskFromStorage() || [];
     for (let i = 0; i < tasks.length; i++) {
       const task = tasks[i];
