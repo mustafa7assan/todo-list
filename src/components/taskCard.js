@@ -49,11 +49,11 @@ const taskCard = (task, index) => {
       taskDescriptionElement,
       taskTitleElement
     );
-    const task = currentProject.project.tm.getTask(index);
+    const task = {};
     task.title = taskTitleElement.textContent;
     task.description = taskDescriptionElement.textContent;
     task.dueDate = taskDueDateElement.textContent;
-    currentProject.project.tm.showTasks();
+    currentProject.project.tm.editTask(index, task);
     saveButton.classList.toggle("hidden");
   });
   // Menu Button
@@ -65,9 +65,9 @@ const taskCard = (task, index) => {
   // Done Button
   const doneButton = card.querySelector(".task-done");
   doneButton.addEventListener("click", () => {
-    const task = currentProject.project.tm.getTask(index);
-    task.done();
-    currentProject.project.tm.showTasks();
+    // const task = currentProject.project.tm.getTask(index);
+    currentProject.project.tm.updateTask(index);
+    // currentProject.project.tm.showTasks();
   });
   // Delete Button
   const deleteButton = card.querySelector(".task-delete");

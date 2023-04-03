@@ -13,3 +13,10 @@ projectManager.addProject("today");
 const today = projectManager.getProject("today");
 currentProject.project = today;
 currentProject.project.tm.showTasks();
+
+window.addEventListener("click", (e) => {
+  const aside = document.querySelector("aside");
+  if (!e.target.closest("aside") && !e.target.matches(".burger-menu")) {
+    aside.classList.remove("show");
+  }
+});
