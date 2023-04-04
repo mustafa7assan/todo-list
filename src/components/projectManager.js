@@ -25,6 +25,7 @@ const projectManager = (() => {
     const p = new Project(project.title);
     return p;
   };
+
   const showProjects = () => {
     const projectsContainer = document.querySelector(".projects");
     projectsContainer.innerHTML = "";

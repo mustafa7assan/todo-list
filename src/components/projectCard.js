@@ -1,7 +1,6 @@
 import projectManager from "./projectManager";
 import currentProject from "./currentProject";
 import img1 from "../img/dots.svg";
-import img2 from "../img/edit.svg";
 import img3 from "../img/delete.svg";
 const projectCard = (project, index) => {
   const card = document.createElement("li");
@@ -10,10 +9,6 @@ const projectCard = (project, index) => {
   <p class="project-name">${project.title}</p>
   <img src="${img1}" class="icon dots" alt="" />
   <div class="project-pop hidden">
-    <div class="project-edit">
-      <img src="${img2}" class="icon" alt="" /> Edit
-      project
-    </div>
     <div class="project-delete">
       <img src="${img3}" class="icon" alt="" />Delete
       project
@@ -21,6 +16,7 @@ const projectCard = (project, index) => {
   </div>`;
 
   card.insertAdjacentHTML("afterbegin", html);
+
   // Show projects tasks
   card.addEventListener("click", () => {
     const title = card
@@ -51,8 +47,6 @@ const projectCard = (project, index) => {
     const project = projectManager.getProject("today");
     currentProject.project = project;
     currentProject.project.tm.showTasks();
-    const aside = document.querySelector("aside");
-    aside.classList.toggle("show");
   });
   return card;
 };

@@ -331,7 +331,8 @@ aside {
   font-family: inherit;
   width: 75%;
 }
-.project-form button {
+.project-form button,
+.project-name + button {
   padding: 3px 7px;
   color: white;
   font-weight: 600;
@@ -342,6 +343,15 @@ aside {
 .title,
 .project-name {
   text-transform: capitalize;
+}
+.project-name {
+  padding: 2px 8px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.project-name:focus {
+  border-color: #c2c1c1;
 }
 .show {
   display: block;
